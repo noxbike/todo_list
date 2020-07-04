@@ -15,5 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('todo', 'TodolistController@show');
-Route::post('todo','TodolistController@store');
+Route::resource('todo', 'TodolistController');
