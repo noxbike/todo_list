@@ -28,14 +28,19 @@ class TodoRepository
     private function save(Todo $todo, Array $inputs)
     {
         $todo->todo = $inputs['todo'];
-        $todo->description = $inputs['description'];
+        $todo->date = $inputs['date'];
 
         $todo->save();
     }
 
     public function getPaginate($n)
     {
-        return $this->_todo->paginate($n);
+        return $this->_todo->orderBy('todos.date', 'asc')->paginate($n);
+    }
+
+    public function update($id, Array $inputs)
+    {
+        $this->save($this->getById($id), $inputs);
     }
 
     public function destroy($id)

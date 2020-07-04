@@ -70,7 +70,9 @@ class TodolistController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todo = $this->_todoRepository->getById($id);
+
+        return view('edit', compact('todo'));
     }
 
     /**
@@ -80,9 +82,11 @@ class TodolistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TodoRequest $request, $id)
     {
-        //
+        $this->_todoRepository->update($id, $request->all());
+
+        return redirect('todo');
     }
 
     /**
