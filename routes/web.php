@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('todo', 'TodolistController');
+
+Route::get('date/{day}', 'TodolistController@indexdate')->name('todo.date');

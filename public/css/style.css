@@ -1,0 +1,13 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    height:100vh;
+    background-color: rgb(30, 30, 30);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.sidebar{
+    background-color:rgb(30, 30, 30);
+}

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <div class='content col-lg-6'>
     {!! Form::open(['url' => 'todo']) !!}
         {!! Form::text('todo', null, ['class' => 'todo', 'placeholder' => 'Add to do here']) !!}
         {!! Form::date('date', null, ['class' => 'date']) !!}
@@ -26,6 +27,8 @@
                     <td class="date"><strong>Aujourd-hui</strong></td>
                 @elseif($one->date == date('Y-m-d',strtotime('+1 day')))
                     <td class="date"><strong>Demain</strong></td>
+                @elseif($one->date < date('Y-m-d'))
+                <td class="date"><strong>Manqué</strong></td>
                 @else
                     <td class="date"><strong>{!! $one->date !!}</strong></td>
                 @endif
@@ -43,4 +46,5 @@
         </thbody>
     </table>
     {!! $links !!}
+    </div>
 @endsection

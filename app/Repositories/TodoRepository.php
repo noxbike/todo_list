@@ -47,4 +47,11 @@ class TodoRepository
     {
         $this->getById($id)->delete();
     }
+
+    public function date($n, $day)
+    {
+        $compare = $day < date('Y-m-d') ? '<=' : '=';
+
+        return $this->_todo->where('date', $compare , $day)->orderBy('todos.date', 'asc')->paginate($n);
+    }
 }

@@ -48,7 +48,7 @@ class TodolistController extends Controller
     public function store(Request $request)
     {
         $todo = $this->_todoRepository->store($request->all());
-        return redirect('todo');
+        return redirect()->back();
     }
 
     /**
@@ -72,7 +72,7 @@ class TodolistController extends Controller
     {
         $todo = $this->_todoRepository->getById($id);
 
-        return view('edit', compact('todo'));
+        return redirect()->back();
     }
 
     /**
@@ -87,6 +87,14 @@ class TodolistController extends Controller
         $this->_todoRepository->update($id, $request->all());
 
         return redirect('todo');
+    }
+
+    public function indexdate($day)
+    {
+        $todo = $this->_todoRepository->date($this->_nbrPerPage, $day);
+        $links = $todo->render();
+
+        return view('home', compact('todo', 'links'));
     }
 
     /**
