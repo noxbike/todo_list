@@ -10,7 +10,7 @@ class TodolistController extends Controller
 {
     protected $_todoRepository;
 
-    protected $_nbrPerPage = 6;
+    protected $_nbrPerPage = 8;
 
     public function __construct(TodoRepository $todoRepository)
     {
@@ -24,6 +24,14 @@ class TodolistController extends Controller
     public function index()
     {
         $todo = $this->_todoRepository->getPaginate($this->_nbrPerPage);
+        $links = $todo->render();
+
+        return view('home', compact('todo', 'links'));
+    }
+
+    public function indexdate($day)
+    {
+        $todo = $this->_todoRepository->date($this->_nbrPerPage, $day);
         $links = $todo->render();
 
         return view('home', compact('todo', 'links'));
@@ -45,10 +53,10 @@ class TodolistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
         $todo = $this->_todoRepository->store($request->all());
-        return redirect()->back();
+        return $this->index()->with('message', 'Une nouvelle tâche a été ajouter !');
     }
 
     /**
@@ -68,11 +76,11 @@ class TodolistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($date, $id)
     {
-        $todo = $this->_todoRepository->getById($id);
+        $updated = $this->_todoRepository->getById($id);
 
-        return redirect()->back();
+        return $this->indexdate($date)->with('updated', $updated);
     }
 
     /**
@@ -86,15 +94,7 @@ class TodolistController extends Controller
     {
         $this->_todoRepository->update($id, $request->all());
 
-        return redirect('todo');
-    }
-
-    public function indexdate($day)
-    {
-        $todo = $this->_todoRepository->date($this->_nbrPerPage, $day);
-        $links = $todo->render();
-
-        return view('home', compact('todo', 'links'));
+        return $this->index()->with('message', 'Une tâche a été modifier !');
     }
 
     /**
