@@ -53,6 +53,6 @@ class TodoRepository
         $compare = $day < date('Y-m-d') ? '<=' : '=';
         $day = $day < date('Y-m-d') ? date('Y-m-d',strtotime('-1 day')) : $day;
 
-        return $this->_todo->where('date', $compare , $day)->orderBy('todos.date', 'asc')->paginate($n);
+        return $this->_todo->where('date', $compare , $day)->orderBy('todos.date', 'asc')->paginate($n); 
     }
 }

@@ -28,6 +28,9 @@
         <div class='contain-table'>
             <table class="col-lg-11">
                 <thbody>
+                @if(!isset($todo[0]))
+                        <h4 class='no-task'>Vous n'avez pas encore ajouter de tâche !</h4>
+                @else
                     @foreach ($todo as $one)
                         <tr class="row">
                             <td class="todo col-lg-9">
@@ -54,6 +57,7 @@
                             </td>
                         </tr>
                     @endforeach
+                @endif
                 </thbody>
             </table>
         </div>

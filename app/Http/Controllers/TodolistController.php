@@ -94,7 +94,7 @@ class TodolistController extends Controller
     {
         $this->_todoRepository->update($id, $request->all());
 
-        return $this->index()->with('message', 'Une tâche a été modifier !');
+        return redirect('todo')->with('message', 'Une tâche a été modifier !');
     }
 
     /**
